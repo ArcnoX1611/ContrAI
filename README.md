@@ -38,7 +38,7 @@ Most AI tools are designed to be helpful and compliant. ContrAI is designed to b
 
 1.  **Clone the Repository**
     ```bash
-    git clone https://github.com/yourusername/ContrAI.git
+    git clone https://github.com/ArcnoX1611/ContrAI.git
     cd ContrAI
     ```
 
@@ -52,14 +52,21 @@ Most AI tools are designed to be helpful and compliant. ContrAI is designed to b
     ```env
     GOOGLE_API_KEY=your_api_key_here
     ```
+4.  **Install Dependencies**
+    ```bash
+    pip install -r requirements.txt
+    ```
 
-4.  **Run the Application**
+5.  **Run the Application**
     ```bash
     python main.py
     ```
 
-5.  **Access the App**
+6.  **Access the App**
     Open your browser and navigate to `http://127.0.0.1:5000`.
+
+## Alternatively , you can see the website deployed on  https://contrai.onrender.com/
+it may take some time to load as the server is on free tier of render.com wait 60 seconds for the server to wake up.
 
 ## Design Decisions
 
