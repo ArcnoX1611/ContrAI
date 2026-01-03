@@ -233,7 +233,18 @@ def rate_limit_handler(e):
         message="Too many requests",
         description="You’ve hit the usage limit. Please wait a moment before trying again."
     ), 429
-    
+
+
+@app.route('/error')   
+@app.errorhandler(500)
+def internal_error(e):
+    return render_template(
+        'error.html',
+        title="Server Error",
+        message="An internal server error occurred.",
+        description="Either the api is flagged or the quota is exceeded.in this case you can use this by cloning to the github repo of this page and run on your machine with your own gemini api key"
+    ), 500
+
 if __name__ == '__main__':
     app.run(debug=True)
     
