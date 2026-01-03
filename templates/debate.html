@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debate Logic | ContrAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="loading-overlay" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container animate-fade-in">
+        <h1>Debate Logic</h1>
+        <p>Present your arguments. ContrAI will ruthlessly deconstruct them.</p>
+
+        <div class="card">
+            <form action="/debate" method="post" onsubmit="document.getElementById('loader').style.display = 'flex'">
+                <div>
+                    <label for="topic">Topic</label>
+                    <input type="text" id="topic" name="topic" required
+                        placeholder="e.g., Artificial Intelligence Safety">
+                </div>
+
+                <div>
+                    <label for="your_stance">Your Stance</label>
+                    <input type="text" id="your_stance" name="your_stance" required
+                        placeholder="e.g., AI development should be paused">
+                </div>
+
+                <div>
+                    <label for="argument">Your Argument</label>
+                    <textarea id="argument" name="argument" rows="6" required
+                        placeholder="Construct your best logical argument here..."></textarea>
+                </div>
+
+                <input type="submit" value="Analyze Logic">
+            </form>
+        </div>
+
+        {% if output.score %}
+        <div class="card results-container animate-fade-in">
+            <h2>Critique Results</h2>
+
+            <div class="result-item">
+                <span class="result-label">Score</span>
+                <span class="result-content"
+                    style="color: var(--accent-primary); font-weight: bold; font-size: 1.2rem;">{{ output.score or '—'
+                    }}/100</span>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Verdict</span>
+                <span class="result-content">{{ output.verdict or '—' }}</span>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Summary</span>
+                <div class="result-content">{{ output.summary or '—' }}</div>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Missing Evidence</span>
+                <div class="result-content">{{ output.missing_evidence or '—' }}</div>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Counter-Arguments</span>
+                <div class="result-content">{{ output.counter_arguments or '—' }}</div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn-link"
+                style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">&larr; Back to Home</a>
+        </div>
+    </div>
+</body>
+
+</html>

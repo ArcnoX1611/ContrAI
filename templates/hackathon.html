@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Judge | ContrAI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+
+<body>
+    <div class="loading-overlay" id="loader">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="container animate-fade-in">
+        <h1>Hackathon Judge</h1>
+        <p>Pitch your idea. ContrAI will crush your scope creep and technical delusions.</p>
+
+        <div class="card">
+            <form action="/hackathon" method="post" onsubmit="document.getElementById('loader').style.display = 'flex'">
+                <div>
+                    <label for="hackathon-theme">Hackathon Theme</label>
+                    <input type="text" id="hackathon-theme" name="hackathon-theme" required
+                        placeholder="e.g., Sustainability / FinTech">
+                </div>
+
+                <div>
+                    <label for="idea_title">Idea Title</label>
+                    <input type="text" id="idea_title" name="idea_title" required placeholder="e.g., EcoChain">
+                </div>
+
+                <div>
+                    <label for="idea_description">Idea Description</label>
+                    <textarea id="idea_description" name="idea_description" rows="6" required
+                        placeholder="Explain your idea, tech stack, and value prop..."></textarea>
+                </div>
+
+                <input type="submit" value="Judge My Idea">
+            </form>
+        </div>
+
+        {% if output.score %}
+        <div class="card results-container animate-fade-in">
+            <h2>Critique Results</h2>
+
+            <div class="result-item">
+                <span class="result-label">Score</span>
+                <span class="result-content"
+                    style="color: var(--accent-secondary); font-weight: bold; font-size: 1.2rem;">{{ output.score or '—'
+                    }}/100</span>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Verdict</span>
+                <span class="result-content">{{ output.verdict or '—' }}</span>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Summary</span>
+                <div class="result-content">{{ output.summary or '—' }}</div>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Scope Creep</span>
+                <div class="result-content">{{ output.scope_creep or '—' }}</div>
+            </div>
+
+            <div class="result-item">
+                <span class="result-label">Technical Issues</span>
+                <div class="result-content">{{ output.technical_issues or '—' }}</div>
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="text-center mt-4">
+            <a href="/" class="btn-link"
+                style="color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;">&larr; Back to Home</a>
+        </div>
+    </div>
+</body>
+
+</html>
