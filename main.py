@@ -1,11 +1,21 @@
 from flask import Flask, render_template, request
+from flask import render_template
 import os
 from dotenv import load_dotenv
 load_dotenv()
 from google import genai
 import re
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
 
 app = Flask(__name__)
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["20 per minute"]
+)
+
 client = genai.Client()
 
 def _non_empty_lines(text):
@@ -184,6 +194,7 @@ def home():
     return render_template('index.html')
 
 @app.route('/debate', methods=['GET', 'POST'])
+@limiter.limit("1 per second;4 per minute;20 per hour")
 def debate():
     output = {}
     if request.method == 'POST':
@@ -199,6 +210,7 @@ def debate():
     return render_template('debate.html', output=output)    
 
 @app.route('/hackathon', methods=['GET', 'POST'])
+@limiter.limit("1 per second;4 per minute;20 per hour")
 def hackathon():
     output = {}
     if request.method == 'POST':
@@ -212,5 +224,16 @@ def hackathon():
         output = parse_hackathon_response(response.text)
     return render_template('hackathon.html', output=output)
 
+@app.route('/error')
+@app.errorhandler(429)
+def rate_limit_handler(e):
+    return render_template(
+        'error.html',
+        title="Slow down",
+        message="Too many requests",
+        description="You’ve hit the usage limit. Please wait a moment before trying again."
+    ), 429
+    
 if __name__ == '__main__':
     app.run(debug=True)
+    
