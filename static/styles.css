@@ -1,22 +1,30 @@
 /* Modern Dark Theme for ContrAI */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;600;700&family=Fira+Code:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
 :root {
-    --bg-color: #0d1117;
-    --card-bg: #161b22;
-    --card-border: #30363d;
-    --text-primary: #f0f6fc;
-    --text-secondary: #8b949e;
-    --accent-primary: #58a6ff;
-    /* Blue */
-    --accent-secondary: #ff7b72;
-    /* Red */
-    --accent-tertiary: #d2a8ff;
-    /* Purple */
-    --glow-color: rgba(88, 166, 255, 0.2);
-    --input-bg: #0d1117;
-    --input-border: #30363d;
-    --transition-speed: 0.3s;
+    /* Core background + neutral */
+    --bg-color: #25123b; /* deep purple background */
+    --card-bg: #1f0f33;
+    --card-border: rgba(255,255,255,0.04);
+    --text-primary: #f3f6fb;
+    --text-secondary: #aeb9c6;
+
+    /* Palette from attachment (left→right): purple, magenta, coral, amber */
+    --palette-purple: #6B21A8;
+    --palette-magenta: #C7209F;
+    --palette-coral: #FF5A5F;
+    --palette-amber: #FFD166;
+
+    /* Mapping to semantic accents */
+    --accent-primary: var(--palette-purple);
+    --accent-secondary: var(--palette-magenta);
+    --accent-tertiary: var(--palette-coral);
+    --accent-quaternary: var(--palette-amber);
+
+    --glow-color: rgba(107, 33, 168, 0.12);
+    --input-bg: #170922;
+    --input-border: rgba(255,255,255,0.04);
+    --transition-speed: 0.28s;
 }
 
 * {
@@ -35,8 +43,9 @@ body {
     flex-direction: column;
     overflow-x: hidden;
     background-image:
-        radial-gradient(circle at 10% 20%, rgba(88, 166, 255, 0.05) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(210, 168, 255, 0.05) 0%, transparent 20%);
+        radial-gradient(circle at 12% 18%, rgba(107, 33, 168, 0.06) 0%, transparent 22%),
+        radial-gradient(circle at 86% 78%, rgba(199, 32, 159, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 70% 20%, rgba(255, 90, 95, 0.04) 0%, transparent 18%);
 }
 
 /* Layout */
@@ -44,7 +53,7 @@ body {
     width: 100%;
     max-width: 800px;
     margin: 0 auto;
-    padding: 2rem;
+    padding: 20px;
     flex: 1;
 }
 
@@ -54,7 +63,8 @@ h1 {
     font-weight: 800;
     margin-bottom: 1rem;
     letter-spacing: -0.05rem;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 100%);
+    font-family: 'Poppins', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(90deg, var(--palette-purple) 0%, var(--palette-magenta) 33%, var(--palette-coral) 66%, var(--palette-amber) 100%);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -79,7 +89,25 @@ p {
     margin-left: auto;
     margin-right: auto;
 }
-
+blockquote {
+    padding-inline: 1.5rem;
+    border-inline-start: 5px solid var(--palette-coral);
+    border-inline-end: 5px solid var(--palette-coral);
+    border-radius: 10px;
+}
+#impact-quote {
+    font-size: 1.2rem;
+    font-style: italic;
+    background: linear-gradient(135deg, var(--palette-amber) 0%, var(--palette-coral) 45%, var(--palette-purple) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    font-family: 'Poppins', system-ui, sans-serif;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
 /* Cards & Forms */
 .card {
     background-color: var(--card-bg);
@@ -93,8 +121,8 @@ p {
 
 .card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
-    border-color: var(--accent-primary);
+    box-shadow: 0 10px 35px rgba(11, 18, 30, 0.55), 0 0 40px rgba(199,32,159,0.06);
+    border-color: rgba(107,33,168,0.22);
 }
 
 form {
@@ -128,7 +156,7 @@ textarea {
 textarea {
     resize: vertical;
     min-height: 120px;
-    font-family: 'JetBrains Mono', monospace;
+    font-family: 'Fira Code', 'JetBrains Mono', monospace;
     /* Monospace for code/arguments */
     font-size: 0.9rem;
 }
@@ -137,7 +165,7 @@ input[type="text"]:focus,
 textarea:focus {
     outline: none;
     border-color: var(--accent-primary);
-    box-shadow: 0 0 0 3px var(--glow-color);
+    box-shadow: 0 6px 30px rgba(107,33,168,0.08), 0 0 0 6px rgba(107,33,168,0.06);
 }
 
 /* Buttons */
@@ -161,7 +189,7 @@ button,
 
 /* Primary Action Button (Submit) */
 input[type="submit"] {
-    background: linear-gradient(135deg, var(--accent-primary), #2188ff);
+    background: linear-gradient(90deg, var(--palette-magenta), var(--palette-coral));
     color: white;
     width: 100%;
     margin-top: 1rem;
@@ -225,14 +253,35 @@ button:hover>a {
 
 .nav-card:hover {
     transform: translateY(-5px);
-    border-color: var(--accent-primary);
-    box-shadow: 0 0 20px var(--glow-color);
+    border-color: rgba(199,32,159,0.22);
+    box-shadow: 0 10px 30px rgba(11,17,24,0.6), 0 0 30px rgba(199,32,159,0.05);
 }
 
 .nav-card h3 {
     font-size: 1.25rem;
     margin-bottom: 0.5rem;
-    color: var(--accent-primary);
+    color: var(--accent-secondary);
+}
+
+/* Specific heading colors for index cards (non-red alternatives) */
+.nav-card h3.debate-heading {
+    background: linear-gradient(90deg, var(--palette-purple), var(--palette-magenta));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Poppins', system-ui, sans-serif;
+}
+.nav-card h3.hackathon-heading {
+    background: linear-gradient(90deg, var(--palette-magenta), var(--palette-coral));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* Slightly larger nav headings for emphasis */
+.nav-card h3 {
+    font-weight: 700;
 }
 
 .nav-card p {
@@ -244,11 +293,10 @@ button:hover>a {
 
 /* Results Section */
 .results-container {
-    background: rgba(22, 27, 34, 0.8);
+    background: linear-gradient(180deg, rgba(31,15,45,0.7), rgba(25,11,37,0.55));
     backdrop-filter: blur(10px);
-    border: 1px solid var(--accent-tertiary);
-    /* Purple border for results */
-    box-shadow: 0 0 30px rgba(210, 168, 255, 0.1);
+    border: 1px solid rgba(199,32,159,0.08);
+    box-shadow: 0 8px 40px rgba(11,17,24,0.6), 0 0 40px rgba(199,32,159,0.03);
 }
 
 .result-item {
@@ -264,7 +312,7 @@ button:hover>a {
 }
 
 .result-label {
-    color: var(--accent-tertiary);
+    color: var(--palette-magenta);
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.05em;
