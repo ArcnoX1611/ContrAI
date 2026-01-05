@@ -234,7 +234,7 @@ def rate_limit_handler(e):
         description="You’ve hit the usage limit. Please wait a moment before trying again."
     ), 429
 
-
+ 
 @app.route('/error')   
 @app.errorhandler(500)
 def internal_error(e):
